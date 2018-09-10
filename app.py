@@ -14,29 +14,36 @@ stock_names = ['Close', 'Open', 'Adj. Close', 'Adj. Open']
 
 
 def get_quandl_data(stock):
-    start_date, end_date = '2016-01-01', '2018-01-01'
+
     # api
-    url = 'https://www.quandl.com/api/v3/datasets/WIKI/{}.json?start_date={}&end_date={}'.format(stock, start_date, end_date)
+    api_key = 'HS-tx_Mev3qhG9vzKCik'
+    api_url = 'https://www.quandl.com/api/v3/datasets/WIKI/{}.json?api_key={}'.format(stock, api_key)
     # request data
-    response = requests.get(url)
-    data = response.json()
+    # response = requests.get(url)
+    # data = response.json()
+    session = requests.Session()
+    session.mount('http://', requests.adapters.HTTPAdapter(max_retries=3))
+    raw_data = session.get(api_url)
+    data = raw_data.json()
+
     # create pandaframe from json data
     df = pd.DataFrame(data['dataset']['data'], columns=data['dataset']['column_names'])
+    df['Date'] = pd.to_datetime(df['Date'])
     return df
 
 
 def get_csv_data(stock):
     df = pd.read_csv('data/WIKI-{}.csv'.format(stock))
-    df['tp'] = df.index
+    df['Date'] = pd.to_datetime(df['Date'])
     return df
 
 
 # create a bokeh figure
 def create_figure(stock, lookup):
 
-    df = get_csv_data(stock)
-    # df = get_quandl_data(stock)
-    df['Date'] = pd.to_datetime(df['Date'])
+    # df = get_csv_data(stock)
+    df = get_quandl_data(stock)
+
     # lookup = 'Close'
 
     lib = {'Close': 'Closing Prices', 'Open': 'Open Prices',
