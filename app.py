@@ -18,8 +18,8 @@ def get_quandl_data(stock):
     # api
     url = 'https://www.quandl.com/api/v3/datasets/WIKI/{}.json?start_date={}&end_date={}'.format(stock, start_date, end_date)
     # request data
-    with requests.get(url) as response:
-        data = response.json()
+    response = requests.get(url)
+    data = response.json()
     # create pandaframe from json data
     df = pd.DataFrame(data['dataset']['data'], columns=data['dataset']['column_names'])
     return df
