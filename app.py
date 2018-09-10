@@ -34,8 +34,8 @@ def get_csv_data(stock):
 # create a bokeh figure
 def create_figure(stock, lookup):
 
-    # df = get_csv_data(stock)
-    df = get_quandl_data(stock)
+    df = get_csv_data(stock)
+    # df = get_quandl_data(stock)
     df['Date'] = pd.to_datetime(df['Date'])
     # lookup = 'Close'
 
