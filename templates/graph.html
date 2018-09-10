@@ -2,12 +2,27 @@
   <head>
     <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.16.min.js"></script>
     <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.16.min.css">
-
-    {{ script | safe }}
   </head>
+
   <body>
-    <div class=page>
-      {{ div | safe }}
-    </div>
+    <form id='input' method='post' action='graph'>
+    <p>
+        Ticker: <input type='text' name='ticker' />
+    </p>
+    <p>
+        <select name="lookup">
+            {% for price in price_search %}
+                {% if price == current_price_name %}
+                    <option selected value="{{ price }}">{{ price }}</option>
+                {% else %}
+                    <option value="{{ price }}">{{ price }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <input type="submit">
+        </form>
+    </p>
+    {{ script | safe }}
+    {{ div | safe }}
   </body>
 </html>

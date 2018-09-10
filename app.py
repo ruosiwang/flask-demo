@@ -8,7 +8,7 @@ from bokeh.embed import components
 app = Flask(__name__)
 
 
-stock_names = ['Close', 'Open', 'Adj. Close', 'Adj. Open']
+price_search = ['Close', 'Open', 'Adj. Close', 'Adj. Open']
 
 # use quandl api to get the data of a stock, and then return the pandaframe
 
@@ -72,7 +72,7 @@ def main():
 
 @app.route('/index', methods=['GET'])
 def index():
-    return render_template('index.html', stock_names=stock_names)
+    return render_template('index.html', price_search=price_search)
 
 
 @app.route('/graph', methods=['POST'])
@@ -86,7 +86,7 @@ def graph():
 
     # Embed plot into HTML via Flask Render
     script, div = components(p)
-    return render_template("graph.html", script=script, div=div)
+    return render_template("graph.html", script=script, div=div, price_search=price_search)
 
 
 # With debug=True, Flask server will auto-reload

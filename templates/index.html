@@ -15,11 +15,11 @@
     </p>
     <p>
         <select name="lookup">
-            {% for stock in stock_names %}
-                {% if stock == current_stock_name %}
-                    <option selected value="{{ stock }}">{{ stock }}</option>
+            {% for price in price_search %}
+                {% if price == current_price_name %}
+                    <option selected value="{{ price }}">{{ price }}</option>
                 {% else %}
-                    <option value="{{ stock }}">{{ stock }}</option>
+                    <option value="{{ price }}">{{ price }}</option>
                 {% endif %}
             {% endfor %}
         </select>
