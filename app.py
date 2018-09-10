@@ -1,16 +1,11 @@
 from flask import Flask, render_template, request, redirect
 import requests
 import pandas as pd
-import numpy as np
 
 from bokeh.plotting import figure
 from bokeh.embed import components
 
 app = Flask(__name__)
-
-
-def datetime(x):
-    return np.array(x, dtype=np.datetime64)
 
 
 stock_names = ['Close', 'Open', 'Adj. Close', 'Adj. Open']
