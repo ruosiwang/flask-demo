@@ -86,7 +86,7 @@ def graph():
 
     # Embed plot into HTML via Flask Render
     script, div = components(p)
-    return render_template("graph.html", script=script, div=div)
+    return render_template("graph.html", script=script, div=div, price_search=price_search)
 
 
 # With debug=True, Flask server will auto-reload
